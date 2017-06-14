@@ -17,22 +17,22 @@ package com.chalilayang.voicechanger;
 
 public final class SoundTouch {
     // Load the native library upon startup
-    
-    private long mObjectPtr;
 
     static {
-	System.loadLibrary("soundtouch");
+        System.loadLibrary("soundtouch");
     }
 
-    public static SoundTouch getInstance() {
-	return new SoundTouch();
-    }
+    private long mObjectPtr;
 
     /**
      * 记得调用{@link #release()}释放内存
      */
     public SoundTouch() {
-	mObjectPtr = initSoundTouchObject();
+        mObjectPtr = initSoundTouchObject();
+    }
+
+    public static SoundTouch getInstance() {
+        return new SoundTouch();
     }
 
     // Native interface function that returns SoundTouch version string.
@@ -57,37 +57,37 @@ public final class SoundTouch {
     private native void putSamples(short[] samples, int length, long objectPtr);
 
     private native short[] receiveSamples(long objectPtr);
-    
+
     public void setSampleRate(int sampleRate) {
-	setSampleRate(sampleRate, mObjectPtr);
+        setSampleRate(sampleRate, mObjectPtr);
     }
-    
+
     public void setChannels(int channel) {
-	setChannels(channel, mObjectPtr);
+        setChannels(channel, mObjectPtr);
     }
-    
+
     public void setTempo(float newTempo) {
-	setTempo(newTempo, mObjectPtr);
+        setTempo(newTempo, mObjectPtr);
     }
-    
+
     public void setPitch(float newPitch) {
-	setPitch(newPitch, mObjectPtr);
+        setPitch(newPitch, mObjectPtr);
     }
-    
+
     public void setRate(float newRate) {
-	setRate(newRate, mObjectPtr);
+        setRate(newRate, mObjectPtr);
     }
-    
+
     public void putSamples(short[] samples, int length) {
-	putSamples(samples, length, mObjectPtr);
+        putSamples(samples, length, mObjectPtr);
     }
-    
+
     public short[] receiveSamples() {
-	return receiveSamples(mObjectPtr);
+        return receiveSamples(mObjectPtr);
     }
-    
+
     public synchronized void release() {
-	freeSoundTouchObject(mObjectPtr);
-	mObjectPtr = 0;
+        freeSoundTouchObject(mObjectPtr);
+        mObjectPtr = 0;
     }
 }

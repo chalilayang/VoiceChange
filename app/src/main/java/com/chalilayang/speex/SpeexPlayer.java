@@ -1,15 +1,14 @@
 /**
- * 
+ *
  */
 package com.chalilayang.speex;
 
-import java.io.File;
-
 import com.chalilayang.speex.encode.SpeexDecoder;
+
+import java.io.File;
 
 /**
  * @author Gauss
- * 
  */
 public class SpeexPlayer {
     private File file = null;
@@ -19,66 +18,68 @@ public class SpeexPlayer {
 
     public SpeexPlayer(File file) {
 
-	this.file = file;
-	try {
-	    speexdec = new SpeexDecoder(this.file);
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+        this.file = file;
+        try {
+            speexdec = new SpeexDecoder(this.file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void startPlay(int streamMode) {
-	RecordPlayThread rpt = new RecordPlayThread(streamMode);
+        RecordPlayThread rpt = new RecordPlayThread(streamMode);
 
-	Thread th = new Thread(rpt);
-	th.start();
+        Thread th = new Thread(rpt);
+        th.start();
     }
 
     public void stopPlay() {
-	if (speexdec != null) {
-	    speexdec.stop();
-	}
+        if (speexdec != null) {
+            speexdec.stop();
+        }
     }
 
     public boolean isPlaying() {
-	return isPlaying;
+        return isPlaying;
     }
 
     public void setPlayerListener(SpeexPlayerListener listener) {
-	this.mListener = listener;
+        this.mListener = listener;
     }
 
-    class RecordPlayThread extends Thread {
-	private int streamMode;
-
-	public RecordPlayThread(int streamMode) {
-	    this.streamMode = streamMode;
-	}
-
-	public void run() {
-	    boolean hasException = false;
-	    try {
-		if (speexdec != null) {
-		    isPlaying = true;
-		    speexdec.decode(streamMode);
-		}
-	    } catch (Exception t) {
-		hasException = true;
-		t.printStackTrace();
-	    } finally {
-		isPlaying = false;
-		if (mListener != null) {
-		    if (hasException) {
-			mListener.onPlayerFailed(getFileName());
-		    } else {
-			mListener.onPlayerFinished(getFileName());
-		    }
-		}
-	    }
-	}
-    };
-
     public String getFileName() {
-	return file.getAbsolutePath();
+        return file.getAbsolutePath();
+    }
+
+    ;
+
+    class RecordPlayThread extends Thread {
+        private int streamMode;
+
+        public RecordPlayThread(int streamMode) {
+            this.streamMode = streamMode;
+        }
+
+        public void run() {
+            boolean hasException = false;
+            try {
+                if (speexdec != null) {
+                    isPlaying = true;
+                    speexdec.decode(streamMode);
+                }
+            } catch (Exception t) {
+                hasException = true;
+                t.printStackTrace();
+            } finally {
+                isPlaying = false;
+                if (mListener != null) {
+                    if (hasException) {
+                        mListener.onPlayerFailed(getFileName());
+                    } else {
+                        mListener.onPlayerFinished(getFileName());
+                    }
+                }
+            }
+        }
     }
 }
