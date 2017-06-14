@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VoiceChange</string>
+    <string name="button_startRecording">录音</string>
+    <string name="button_stopRecording">停止录音</string>
+    <string name="button_startPlaying">播放</string>
+    <string name="button_stopPlaying">停止播放</string>
 </resources>

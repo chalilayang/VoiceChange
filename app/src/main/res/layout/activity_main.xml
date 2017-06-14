@@ -7,13 +7,26 @@
     android:layout_height="match_parent"
     tools:context="com.chalilayang.voicechange.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_record"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/button_startRecording"
+        android:onClick="onClickRecord"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_startPlaying"
+        android:onClick="onClickPlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_record"/>
 
 </android.support.constraint.ConstraintLayout>
